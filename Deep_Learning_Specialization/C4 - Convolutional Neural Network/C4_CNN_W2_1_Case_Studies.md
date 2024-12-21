@@ -438,7 +438,20 @@ Computer vision tasks, like image recognition (identifying a cat in a picture) a
 
 
 
+<font color = 'blue'>
 
+**What you should remember**:
+
+- Very deep "plain" networks don't work in practice because vanishing gradients make them hard to train.  
+- Skip connections help address the Vanishing Gradient problem. They also make it easy for a ResNet block to learn an identity function. 
+- There are two main types of blocks: The **identity block** and the **convolutional block**. 
+- Very deep Residual Networks are built by stacking these blocks together.
+
+**Transfer Learning**
+* To adapt the classifier to new data: Delete the top layer, add a new classification layer, and train only on that layer
+* When freezing layers, avoid keeping track of statistics (like in the batch normalization layer)
+* Fine-tune the final layers of your model to capture high-level details near the end of the network and potentially improve accuracy 
+</font>
 
 
 
