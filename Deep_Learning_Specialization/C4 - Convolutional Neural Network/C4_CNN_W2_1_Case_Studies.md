@@ -1,22 +1,7 @@
 ## Deep Convolutional Models: Case Studies
 
 > Learn about the practical tricks and methods used in deep CNNs straight from the research papers -- this helps to gain intuition and confidence in building your own models.
-
-## Table of contents
-
-* [Deep convolutional models: case studies](#deep-convolutional-models-case-studies)
-  * [Why look at case studies?](#why-look-at-case-studies)
-  * [Classic networks](#classic-networks)
-  * [Residual Networks (ResNets)](#residual-networks-resnets)
-  * [Why ResNets work](#why-resnets-work)
-  * [Network in Network and 1×1 convolutions](#network-in-network-and-1-X-1-convolutions)
-  * [Inception network motivation](#inception-network-motivation)
-  * [Inception network (GoogleNet)](#inception-network-googlenet)
-  * [Using Open-Source Implementation](#using-open-source-implementation)
-  * [Transfer Learning](#transfer-learning)
-  * [Data Augmentation](#data-augmentation)
-  * [State of Computer Vision](#state-of-computer-vision)
-   
+  
 
 ## Why look at case studies?
 

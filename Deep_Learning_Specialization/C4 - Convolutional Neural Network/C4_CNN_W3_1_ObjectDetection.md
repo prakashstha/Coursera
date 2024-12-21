@@ -1,16 +1,4 @@
 # Week 3: Object detection
-- [Learning Objectives](#learning-objectives-2)
-- [Detection algorithms](#detection-algorithms)
-  - [Object Localization](#object-localization)
-  - [Landmark Detection](#landmark-detection)
-  - [Object Detection](#object-detection)
-  - [Convolutional Implementation of Sliding Windows](#convolutional-implementation-of-sliding-windows)
-  - [Bounding Box Predictions (YOLO)](#bounding-box-predictions-yolo)
-  - [Intersection Over Union](#intersection-over-union)
-  - [Non-max Suppression](#non-max-suppression)
-  - [Anchor Boxes](#anchor-boxes)
-  - [YOLO Algorithm](#yolo-algorithm)
-  - [(Optional) Region Proposals](#optional-region-proposals)
   
 ## Learning Objectives
 

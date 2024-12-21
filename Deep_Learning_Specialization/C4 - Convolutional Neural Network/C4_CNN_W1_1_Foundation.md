@@ -2,28 +2,6 @@
 
 Learn to implement the foundational layers of CNNs (pooling, convolutions) and to stack them properly in a deep network to solve multi-class image classification problems.
 
-
-## Table of contents
-* Notes from "Understanding Deep Learning" Book
-  * [Network for images](#network-for-images)
-  * [Invariance and Equivariance](#invariance-and-equivariance)
-  * [Convolution in 1D](#convolution-in-1d)
-  * [Problems w Fully Connected Network](#problems-w-fully-connected-network)
-  * [Special Case of Fully Connected Layer](#special-case-of-fully-connected-layer)
-  * [Channels](#channels)
-  * [Receptive Field](#receptive-field)
-  * [Downsampling & Upsampling](#downsampling--upsampling)
-* [Computer vision](#computer-vision)
-* [Edge detection example](#edge-detection-example)
-* [Padding](#padding)
-* [Strided convolution](#strided-convolution)
-* [Convolutions over volumes](#convolutions-over-volumes)
-* [One Layer of a Convolutional Network](#one-layer-of-a-convolutional-network)
-* [A simple convolution network example](#a-simple-convolution-network-example)
-* [Pooling layers](#pooling-layers)
-* [Convolutional neural network example](#convolutional-neural-network-example)
-* [Why convolutions?](#why-convolutions)
-
 ## Notes from "Understanding Deep Learning" Book
 
 ## Network for images

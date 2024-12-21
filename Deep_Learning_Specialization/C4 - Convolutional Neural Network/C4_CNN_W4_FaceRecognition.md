@@ -1,21 +1,6 @@
 
 # Week 4: Special applications: Face recognition & Neural style transfer 
   
-  - [Face Recognition](#face-recognition)
-    - [What is face recognition](#what-is-face-recognition)
-    - [One Shot Learning](#one-shot-learning)
-    - [Siamese network](#siamese-network)
-    - [Triplet Loss](#triplet-loss)
-    - [Face Verification and Binary Classification](#face-verification-and-binary-classification)
-    - [Summary of Face Recognition](#summary-of-face-recognition)
-- [Neural Style Transfer](#neural-style-transfer)
-  - [What is neural style transfer](#what-is-neural-style-transfer)
-  - [What are deep ConvNets learning](#what-are-deep-convnets-learning)
-  - [Cost Function](#cost-function)
-  - [Content Cost Function](#content-cost-function)
-  - [Style Cost Function](#style-cost-function)
-  - [1D and 3D Generalizations](#1d-and-3d-generalizations)
-
 Discover how CNNs can be applied to multiple fields, including art generation and face recognition. Implement your own algorithm to generate art and recognize faces.
 
 ## Face Recognition
