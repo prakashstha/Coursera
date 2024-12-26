@@ -171,17 +171,104 @@ This approach allows the model to generate sentences by sequentially sampling wo
 
     ![rnn-unit](images/rnn-unit.png)
 
-<!-- Understanding the GRU Structure -->
+- The GRU introduces a memory cell `c` to retain important information, such as whether a subject is singular or plural, throughout a sequence.  
+- The update gate ($\Gamma_u$) controls when the memory cell should be updated, regulating the flow of information effectively.  
+- $\hat{c}^{<t>}$ serves as the candidate for replacing $c^{<t>} = a^{<t>}$.  
 
-- The GRU introduces a memory cell (C) that retains information, allowing the model to remember important details, such as whether a subject is singular or plural, throughout a sequence.
-- The GRU uses an update gate (Γ_u) to determine when to update the memory cell, effectively controlling the flow of information.
+- For intuition, $\Gamma_u$ can be thought of as being close to 0 or 1 most of the time, although in practice it is rarely exactly 0 or 1.  
+- When $\Gamma_u$ is very close to 0 (e.g., \(0.000001\) or smaller), the GRU effectively avoids the vanishing gradient problem.  
+- In such cases, $c^{<t>} \approx c^{<t-1>}$, allowing the memory value to remain stable over many time steps, which helps handle long-range dependencies in sequences.  
 
-**Key Equations and Operations**
+- The full GRU model also includes a reset gate $\Gamma_r$, where $\Gamma_r$ (relevance gate) determines how much of $c^{<t-1>}$ should be used to compute the next candidate for $c^{<t>}$.  
 
-- The candidate value for the memory cell (C~) is computed using the previous memory cell value and the current input, processed through an activation function.
-- The update equation combines the candidate value and the previous memory cell value, allowing the model to either update or retain the memory based on the gate's output.
 
-**Benefits of the GRU**
+    ![GRU](images/GRU.png)
 
-- The GRU is particularly effective at maintaining information over long sequences, which helps mitigate the vanishing gradient problem.
-- It allows for selective memory updates, enabling the model to focus on relevant information while ignoring less important details.
+- **Implementation tips**
+    
+    - The asterisks represent element-wise multiplication.  
+    - If the hidden activation value is 100-dimensional, then $c^{<t>}$, $\hat{c}^{<t>}$, and $\Gamma_u$ will also have the same dimension.  
+    - If $\Gamma_u$ is a 100-dimensional vector, then it is really a 100 dimensional vector of bits, with values mostly close to 0 or 1.  
+    - This vector determines which elements of the 100-dimensional memory cell should be updated. 
+    - Element-wise multiplication allows the GRU to selectively update some bits while keeping others constant at each time step.  
+    - In practice, the values in $\Gamma_u$ are not exactly 0 or 1 but are close to these extremes.  
+
+
+
+## LSTM
+
+- LSTMs are more complex than GRUs, featuring three gates: the update gate (\Gamma_u), the forget gate (\Gamma_f), and the output gate (~\Gamma_o). These gates enable more flexible and precise memory management.
+
+- Unlike GRU, for LSTM, $c^<t> \neq a^{<t>}$
+
+- Fancy explanation: [Understanding LSTM Network](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+
+    ![LSTM-units](images/LSTM-units.png)
+
+
+- One notable feature of LSTMs is their ability to preserve information over long sequences.  
+- By appropriately setting the forget and update gates, an initial value $c^{<0>}$ can be easily passed through the memory cell to later timesteps, such as $c^{<3>} = c^{<0>}$.  
+- This capability allows the LSTM, and similarly the GRU, to effectively memorize specific values over long durations.  
+- It ensures that certain real-valued information remains stored in the memory cell, even across many timesteps.  
+
+
+
+    ![LSTM](images/LSTM.png)
+
+
+
+- The equations for LSTMs differ from GRUs, particularly in how memory cell updates are handled. LSTMs include separate gates for updating and forgetting information, offering greater control.
+
+- LSTMs excel at maintaining information over long periods, making them well-suited for tasks requiring memory of earlier inputs.
+
+- **Peephole Connections:** A common variation of LSTMs incorporates peephole connections, where the previous memory cell value influences the gate calculations, enhancing performance in certain tasks.
+
+- **Choosing Between LSTM and GRU**
+
+    - There is no universally superior choice between LSTMs and their variants. GRUs are simpler and better suited for building larger networks, while LSTMs offer greater power and flexibility for a wider range of tasks.
+
+    - **LSTMs:** Historically more proven and versatile, are powerful for tasks with complex memory requirements.  
+
+    - **GRUs:**  Simpler and more efficient, GRUs can be easier to scale for larger models.  
+
+    - **Decision Factors:**  The choice between LSTMs and GRUs depends on the specific problem. Each architecture has advantages suited to different use cases.
+    
+
+## Bidirectional RNN
+
+- Bidirectional RNNs and Deep RNNs allow you to build more powerful sequence models.
+
+
+    ![BRNN](images/BRNN.png)
+
+- A bidirectional RNN allows the model to access information from both earlier and later parts of a sequence, enhancing its predictive capabilities.
+This is particularly useful in tasks like named entity recognition, where context from both directions is essential for accurate predictions.
+
+- The architecture consists of two recurrent components: a forward RNN and a backward RNN, each processing the input sequence in opposite directions.
+- Predictions are made by combining the activations from both the forward and backward passes, allowing the model to consider the entire context of the sequence.
+
+
+- Bidirectional RNNs are commonly used in natural language processing (NLP) tasks, especially with LSTM blocks for better performance.
+- A key limitation is that the entire sequence must be available before making predictions, which can be challenging in real-time applications like speech recognition.
+- The blocks here can be any RNN block including the basic RNNs, LSTMs, or GRUs.
+
+## Deep RNN
+
+![DRNN](images/DRNN.png)
+
+- **Definition and Purpose:** Deep RNNs are built by stacking multiple layers of RNNs, enabling deeper learning and the approximation of more complex functions.  
+
+- **Layer Parameters and Activations:** Each layer has its own set of parameters. Activations are represented with a notation that indicates both the layer number and the time step.  
+
+- **Activation Calculation:**  The activation of a layer is computed using inputs from the previous layer and the current time step. A weighted sum of these inputs is passed through an activation function.  
+
+- **Layer Depth:** While standard RNNs can have many layers, deep RNNs often have fewer due to computational complexity and the additional temporal dimension.  
+
+- **Network Architecture Variations**
+    - **Recurrent Units:** 
+        - Deep RNNs can use different types of recurrent units, such as GRUs and LSTMs.  
+        - Some architectures include bidirectional connections for improved context understanding.  
+
+    - **Stacked Architectures:**  
+        - A common design involves stacking recurrent layers, followed by deep networks that handle predictions.  
+        - This structure allows for flexibility in model design.  
