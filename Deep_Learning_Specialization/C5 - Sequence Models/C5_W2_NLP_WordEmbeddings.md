@@ -302,9 +302,9 @@ NLP w/ deep learning form a powerful pair for advanced text processing. Using Wo
 GloVe builds on earlier models like Word2Vec and skip-gram while simplifying the learning process. By leveraging co-occurrence statistics, it efficiently learns high-quality embeddings that capture word relationships, even though individual dimensions may not be interpretable. The power of GloVe lies in its ability to represent complex relationships, making it a cornerstone in natural language processing.  
 
 
-### Application using Word Embeddings
+## Application using Word Embeddings
 
-#### Sentiment Classification
+### Sentiment Classification
 
 **Definition**: Determines whether a text expresses positive or negative sentiment, a key task in Natural Language Processing (NLP).
 **Applications:** Analyzes feedback on products, services, restaurant reviews, or social media comments to gauge sentiment, identify issues, or monitor trends.
@@ -337,4 +337,42 @@ GloVe builds on earlier models like Word2Vec and skip-gram while simplifying the
 - Generalizes better to new words or phrasing.
 - Effectively uses words not present in the labeled dataset but included in the embedding corpus for classification.
 
-#### Debiasing Word Embeddings
+### Debiasing Word Embeddings
+
+Paper: [Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings](https://arxiv.org/abs/1607.06520)
+
+Word embeddings maybe have the bias problem such as gender bias, ethnicity bias and so on. As word embeddings can learn analogies like man is to woman like king to queen. The paper shows that a learned word embedding might output:
+
+```
+Man: Computer_Programmer as Woman: Homemaker
+```
+
+Learning algorithms are making very important decisions and so I think it's important that we try to change learning algorithms to diminish as much as is possible, or, ideally, eliminate these types of undesirable biases.
+
+- *Identify bias direction*
+  - The first thing we're going to do is to identify the direction corresponding to a particular bias we want to reduce or eliminate.
+  - And take a few of these differences and basically average them. And this will allow you to figure out in this case that what looks like this direction is the gender direction, or the bias direction. Suppose we have a 50-dimensional word embedding.
+    - g<sub>1</sub> = e<sub>she</sub> - e<sub>he</sub>
+    - g<sub>2</sub> = e<sub>girl</sub> - e<sub>boy</sub>
+    - g<sub>3</sub> = e<sub>mother</sub> - e<sub>father</sub>
+    - g<sub>4</sub> = e<sub>woman</sub> - e<sub>man</sub>
+  - g = g<sub>1</sub> + g<sub>2</sub> + g<sub>3</sub> + g<sub>4</sub> + ... for gender vector.
+  - Then we have
+    - `cosine_similarity(sophie, g)) = 0.318687898594`
+    - `cosine_similarity(john, g)) = -0.23163356146`
+    -  to see male names tend to have positive similarity with gender vector whereas female names tend to have a negative similarity. This is acceptable.
+  - But we also have
+    - `cosine_similarity(computer, g)) = -0.103303588739`
+    - `cosine_similarity(singer, g)) = 0.185005181365`
+    - It is astonishing how these results reflect certain unhealthy gender stereotypes.
+  - The bias direction can be higher than 1-dimensional. Rather than taking an average, SVD (singular value decomposition) and PCA might help.
+- *Neutralize*
+  - For every word that is not definitional, project to get rid of bias.
+
+    ![embedding-debiased](images/embedding_debiased.svg)
+  
+- *Equalize pairs*
+  - In the final equalization step, what we'd like to do is to make sure that words like grandmother and grandfather are both exactly the same similarity, or exactly the same distance, from words that should be gender neutral, such as babysitter or such as doctor.
+  - The key idea behind equalization is to make sure that a particular pair of words are equi-distant from the 49-dimensional g⊥.
+
+  ![equalize](images/equalize.png)
