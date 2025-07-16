@@ -14,7 +14,7 @@
   | Music Generation           | One-to-Sequence      | Nothing or Integer | Wave                       |
   | Sentiment classification   | Sequence-to-One      | Text               | Integer Rating  from 1 - 5 |
   | DNA Sequence Analysis      | Sequence-to-Sequence | DNA Sequence       | DNA Labels                 |
-  | Machine Translation        | Sequence-to-One      | Text               | Text                       |
+  | Machine Translation        | Sequence-to-Sequence      | Text               | Text                       |
   | Video Activity Recognition | Sequence-to-One      | Video Frames       | Label                      |
   | Name Entity Recognition    | Sequence-to-Sequence | Text               | Label                      |
 
